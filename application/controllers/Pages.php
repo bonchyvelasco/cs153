@@ -15,4 +15,12 @@ class Pages extends CI_Controller {
         $this->load->view('templates/footer', $data);
     }
 
+    public function dashboard() {
+        $data['title'] = "Dashboard";
+
+        $this->load->view('templates/nav_header', $data);
+        $this->load->view('pages/dashboard', $data);
+        $this->load->view('templates/footer', $data);
+    }
+
 }
