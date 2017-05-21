@@ -1,4 +1,12 @@
-<div class = "ui raised segment" style = "margin-top: 20px; max-width:400px;">
+<h1><?php
+    if ($title == "Home") {
+        echo "Welcome";
+    } else {
+        echo $title;
+    }
+?></h1>
+
+<div class = "ui" style = "margin-top: 20px; max-width:400px;">
     <h2 class="ui header">Log-In</h2>
 
     <div class="ui form" style = "margin-bottom:10px;">
