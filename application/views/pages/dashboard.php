@@ -16,7 +16,7 @@
         array(
             "birthday" => '1998-09-14',
             "username" => "jenny",
-            "name" => "JENIFEERRRRRRRRRR",
+            "name" => "JENIFEERR",
             "address" => "MNL"
         ),
         array(
@@ -24,6 +24,60 @@
             "username" => "bonchykels",
             "name" => "Person2",
             "address" => "MNL"
+        ),
+        array(
+            "birthday" => '1998-09-14',
+            "username" => "bonchykels",
+            "name" => "Person3",
+            "address" => "QC"
+        ),
+        array(
+            "birthday" => '1998-09-14',
+            "username" => "bonchykels",
+            "name" => "Person3",
+            "address" => "QC"
+        ),
+        array(
+            "birthday" => '1998-09-14',
+            "username" => "bonchykels",
+            "name" => "Person3",
+            "address" => "QC"
+        ),
+        array(
+            "birthday" => '1998-09-14',
+            "username" => "bonchykels",
+            "name" => "Person3",
+            "address" => "QC"
+        ),
+        array(
+            "birthday" => '1998-09-14',
+            "username" => "bonchykels",
+            "name" => "Person3",
+            "address" => "QC"
+        ),
+        array(
+            "birthday" => '1998-09-14',
+            "username" => "bonchykels",
+            "name" => "Person3",
+            "address" => "QC"
+        ),
+        array(
+            "birthday" => '1998-09-14',
+            "username" => "bonchykels",
+            "name" => "Person3",
+            "address" => "QC"
+        ),
+        array(
+            "birthday" => '1998-09-14',
+            "username" => "bonchykels",
+            "name" => "Person3",
+            "address" => "QC"
+        ),
+        array(
+            "birthday" => '1998-09-14',
+            "username" => "bonchykels",
+            "name" => "Person3",
+            "address" => "QC"
         ),
         array(
             "birthday" => '1998-09-14',
@@ -79,16 +133,37 @@
             $("#form").show();
             $("#name").focus();
         });
+        $(".item").hover(function(){
+            $(this).css('background', '#f7f7f7');
+        }, function() {
+            $(this).css('background', 'none');
+        });
     });
 </script>
+
+<div class="ui horizontal divider">
+    Online Users
+</div>
+
+<div class="ui relaxed list" style="-webkit-column-count: 3; -moz-column-count: 3; column-count: 3;">
+    <?php foreach($users as $user) {?>
+        <div class="item" style = "cursor:pointer; padding: 5px;">
+            <i class="user large icon"></i>
+            <div class="content">
+                <div class = "sub header"><?php echo $user['name']; ?></div>
+                <span style = "color:grey">@<?php echo $user['username']; ?></span>
+            </div>
+        </div>
+    <?php } ?>
+</div>
 
 <div class="ui horizontal divider">
     Birthdays
 </div>
 
-<div class="ui middle aligned divided relaxed list">
+<div class="ui middle aligned relaxed list">
     <?php foreach($users as $user) {?>
-        <div class="item" style = "cursor:pointer">
+        <div class="item" style = "cursor:pointer; padding:10px">
             <div class="left floated content">
                 <i class="user large icon"></i>
                 <?php echo $user['name']; ?> <span style = "color:grey">@<?php echo $user['username']; ?></span>
