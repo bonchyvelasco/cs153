@@ -147,7 +147,7 @@
                 <div class="right floated content">
                     <?php echo $user['birthday']; ?>
                     <?php if($luser['is_admin']) { ?>
-                        <i class="edit link icon"></i>
+                        <i class="blue edit link icon"></i>
                     <?php } ?>
                 </div>
             </div>
