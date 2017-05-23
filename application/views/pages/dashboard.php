@@ -10,7 +10,7 @@
         "username" => "bonchykels",
         "name" => "Bonchy",
         "address" => "MNL",
-        "is_admin" => false,
+        "is_admin" => true,
         "is_online" => true
     );
 
@@ -75,11 +75,11 @@
         </div>
         <br>
         <div class="ui small input" style = "margin: 5px 0 2.5px 0;">
-            <input type="text" placeholder="Name" value = "<?php echo $luser['address']; ?>">
+            <input type="text" placeholder="Address" value = "<?php echo $luser['address']; ?>">
         </div>
         <br>
         <div class="ui small input" style = "margin: 2.5px 0 5px 0;">
-            <input type="date" placeholder="Name" value = "<?php echo $luser['birthday']; ?>">
+            <input type="date" placeholder="yyyy-mm-dd" value = "<?php echo $luser['birthday']; ?>">
         </div>
         <br>
         <div class = "ui primary submit labeled icon button">
@@ -169,33 +169,63 @@
 
 <?php if ($luser['is_admin']) {?>
 <div class="ui modal">
-    <div class="ui form">
-        <div class="ui transparent input">
-            <h1 class = "ui header">
-                <i class="user icon"></i>
-                <div class = "content">
-                    <input id = "name" type="text" placeholder="Name" value = "<?php echo $luser['name']; ?>">
-                    <div class="sub header">@<?php echo $luser['username']; ?></div>
+    <div class = "header">
+        <i class = "close closer link icon"></i>
+        Add User
+    </div>
+    <div class = "content">
+        <form>
+            <div class="ui labeled input" style = "margin-bottom:5px">
+                <div class = "ui label">
+                    Name
                 </div>
-            </h1>
-        </div>
-        <br>
-        <div class="ui small input" style = "margin: 5px 0 2.5px 0;">
-            <input type="text" placeholder="Name" value = "<?php echo $luser['address']; ?>">
-        </div>
-        <br>
-        <div class="ui small input" style = "margin: 2.5px 0 5px 0;">
-            <input type="date" placeholder="Name" value = "<?php echo $luser['birthday']; ?>">
-        </div>
-        <br>
-        <div class = "ui primary submit labeled icon button">
-            <i class = "save icon"></i>
-            Save
-        </div>
-        <div class = "ui red labeled icon cancel button">
-            <i class = "remove icon"></i>
-            Cancel
-        </div>
+                <input type="text" placeholder="Name" >
+            </div>
+            <br>
+            <div class="ui labeled input" style = "margin-bottom:5px">
+                <div class = "ui label">
+                    Username
+                </div>
+                <input type="text" placeholder="Username">
+            </div>
+            <br>
+            <div class="ui labeled input" style = "margin-bottom:5px">
+                <div class = "ui label">
+                    Address
+                </div>
+                <input type="text" placeholder="Address">
+            </div>
+            <br>
+            <div class="ui labeled input" style = "margin-bottom:5px">
+                <div class = "ui label">
+                    Birthday
+                </div>
+                <input type="date" placeholder="yyyy-mm-dd">
+            </div>
+            <br>
+            <div class="ui labeled input" style = "margin-bottom:5px">
+                <div class = "ui label">
+                    Password
+                </div>
+                <input type="password" placeholder="Password">
+            </div>
+            <br>
+            <div class="ui labeled input" style = "margin-bottom:20px">
+                <div class = "ui label">
+                    Confirm
+                </div>
+                <input type="password" placeholder="Confirm Password">
+            </div>
+            <br>
+            <div class = "ui primary submit labeled icon button">
+                <i class = "add icon"></i>
+                Add
+            </div>
+            <div class = "ui red labeled icon closer button">
+                <i class = "remove icon"></i>
+                Cancel
+            </div>
+        </form>
     </div>
 </div>
 <?php } ?>
@@ -204,7 +234,7 @@
     <?php if ($luser['is_admin']) { ?>
     $('.ui.modal').modal({
         inverted: true
-    }).modal('attach events', '.button.add', 'show');
+    }).modal('attach events', '.button.add', 'show').modal('attach events', '.closer', 'hide');
     <?php } ?>
     $(document).ready(function(){
         $(".form").hide();
@@ -213,19 +243,18 @@
             $(":root").find(".basic:first").find(".form:first").hide();
             $(":root").find(".list").children().find(".reg").show();
             $(":root").find(".list").children().find(".frm").hide();
-            $(this).closest(".basic, .item").find(".form, .frm").show();
+            $(this).closest(".basic, .item").find(".reg").fadeOut(200);
+            $(this).closest(".basic, .item").find(".form, .frm").delay(200).fadeIn(400);
             $(this).closest(".basic, .item").find(".form").find("input:first").focus();
-            $(this).closest(".basic, .item").find(".reg").hide();
         });
         $(".cancel").click(function() {
-            $(this).closest(".basic, .item").find(".form, .frm").hide();
-            $(this).closest(".basic, .item").find(".reg").show();
+            $(this).closest(".basic, .item").find(".form, .frm").fadeOut(200);
+            $(this).closest(".basic, .item").find(".reg").delay(200).fadeIn(400);
         });
         $(".item").hover(function(){
             $(this).css('background', '#f7f7f7');
         }, function() {
             $(this).css('background', 'none');
         });
-
     });
 </script>
