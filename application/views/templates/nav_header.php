@@ -13,11 +13,7 @@
                 <h2>Title</h2>
             </div>
 
-            <a class="item">Link 1</a>
-            <a class="item">Link 2</a>
-            <a class="item">Link 3</a>
+            <a class="item">Log Out</a>
         
         </div>
         <div class = "ui container" style = "margin-top: 75px">
-
-        
