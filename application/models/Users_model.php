@@ -8,9 +8,9 @@ class Users_model extends CI_Model {
                 $this->load->database();
         }
 		
-		function get_user_info($user) {
-			$sql = "SELECT * FROM users WHERE username = ?";
-			$query = $this->db->query($sql, array(1, $user));
+		function get_user_info($id) {
+			$sql = "SELECT * FROM users WHERE id = ?";
+			$query = $this->db->query($sql, array(1, $id));
 			
 			return $query->result;
 		}
@@ -21,11 +21,20 @@ class Users_model extends CI_Model {
 			$this->db->insert($this->table, $this);
 		}
 		
-		function get_item($user) {
-			$sql = "SELECT * FROM users WHERE username = ?";
+		function get(){
+			$sql = "SELECT * FROM users";
 			
-			$this->db->query($sql, array($user));
+			$query = $this->db->query($sql);
+			return $query->result();
 		}
+		
+		function check_user($user, $pass){
+			$sql = "SELECT COUNT(*) FROM users where username = ? AND password = ?";
+			$query = $this->db->query($sql, array($user, $pass));
+			$result = $query->row_array();
+			return $result['COUNT(*)'];
+		}
+		
 		
 		
 }

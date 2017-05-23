@@ -9,17 +9,16 @@
 <div class = "ui" style = "margin-top: 20px; max-width:400px;">
     <h2 class="ui header">Log-In</h2>
 
-    <div class="ui form" style = "margin-bottom:10px;">
+    <form class="ui form" style = "margin-bottom:10px;" action="Controller/authenticate" method="post">
         <div class="required field">
             <label>Username</label>
-            <input type="text" autofocus placeholder="Username">
+            <input type="text" name="username" autofocus placeholder="Username">
         </div>
 
         <div class="required field">
             <label>Password</label>
-            <input type="password" placeholder="Password">
+            <input type="password" name="password" placeholder="Password">
         </div>
-
-        <div class = "ui submit button">Submit</div>
-    </div>
+		<input class = "ui submit button" type = "submit"></input>
+    </form>
 </div>
