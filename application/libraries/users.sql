@@ -7,6 +7,8 @@
 -- Server version: 10.1.21-MariaDB
 -- PHP Version: 7.1.2
 
+DROP DATABASE IF EXISTS admin;
+CREATE DATABASE admin;
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
 
@@ -26,6 +28,7 @@ SET time_zone = "+00:00";
 -- Table structure for table `users`
 --
 
+USE admin;
 CREATE TABLE `users` (
   `id` int(100) NOT NULL,
   `is_admin` tinyint(1) NOT NULL DEFAULT '0',
