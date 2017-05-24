@@ -134,6 +134,9 @@
                     $this->form_validation->set_rules('Date', 'Date', 'trim|required');
                     $this->form_validation->set_rules('Password', 'Password', 'trim|required|min_length[4]|max_length[32]');
                     $this->form_validation->set_rules('ConPassword', 'Confirmation  Password', 'trim|required|matches[Password]');
+					$this->form_validation->set_rules('Captcha', 'Captcha', 'trim|required|matches[captchaWord]');
+					
+					$this->session->unset_userdata('captchaWord');
                     
                     if($this->form_validation->run() == FALSE){
                        redirect('/home');

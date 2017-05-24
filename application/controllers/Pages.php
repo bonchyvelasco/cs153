@@ -19,6 +19,7 @@ class Pages extends CI_Controller {
             redirect("dashboard");
         }
 
+		
 		$captcha = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789abcdefghijklmnopqrstuvwxyz';
 		$captcha = substr(str_shuffle($captcha), 0, 6);
 		$vals = array(
@@ -27,6 +28,8 @@ class Pages extends CI_Controller {
 		);
 
 		$cap = create_captcha($vals);
+		$this->session->set_userdata('captchaWord', $cap['word']);
+		
 		$data['captcha'] = $cap;
         $data['title'] = ucfirst($page); // Capitalize the first letter
 
