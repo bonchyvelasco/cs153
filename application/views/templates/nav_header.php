@@ -13,7 +13,7 @@
                 <h2>Title</h2>
             </div>
 
-            <a class="item">Log Out</a>
+            <a class="item" href = "Controller/logout">Log Out</a>
         
         </div>
         <div class = "ui container" style = "margin-top: 75px">

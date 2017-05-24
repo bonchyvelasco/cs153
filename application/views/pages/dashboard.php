@@ -4,42 +4,6 @@
     } else {
         echo $title;
     }
-
-    $luser = array(
-        "birthday" => '1998-09-14',
-        "username" => "bonchykels",
-        "name" => "Bonchy",
-        "address" => "MNL",
-        "is_admin" => true,
-        "is_online" => true
-    );
-
-    $users = array(
-        array(
-            "birthday" => '1998-09-14',
-            "username" => "jenny",
-            "name" => "JENIFEERR",
-            "address" => "MNL",
-            "is_admin" => false,
-            "is_online" => true
-        ),
-        array(
-            "birthday" => '1998-09-14',
-            "username" => "bonchykels",
-            "name" => "Person2",
-            "address" => "MNL",
-            "is_admin" => false,
-            "is_online" => false
-        ),
-        array(
-            "birthday" => '1998-09-14',
-            "username" => "bonchykels",
-            "name" => "Person3",
-            "address" => "QC",
-            "is_admin" => true,
-            "is_online" => true
-        )
-    );
 ?></h1>
 
 <div class = "ui basic segment" style = "margin-top: 20px">

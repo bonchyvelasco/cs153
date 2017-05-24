@@ -33,7 +33,7 @@ CREATE TABLE `users` (
   `is_admin` tinyint(1) NOT NULL DEFAULT '0',
   `is_online` tinyint(1) NOT NULL DEFAULT '0',
   `username` char(100) NOT NULL,
-  `password` char(255) NOT NULL,
+  `password` char(100) NOT NULL,
   `name` char(100) NOT NULL,
   `address` char(100) NOT NULL,
   `birthday` date NOT NULL
