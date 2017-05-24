@@ -9,10 +9,10 @@ class Users_model extends CI_Model {
         }
 		
 		function get_user_info($id) {
-			$sql = "SELECT * FROM users WHERE id = ?";
-			$query = $this->db->query($sql, array(1, $id));
+			$sql = "SELECT * FROM users WHERE id =".$id." limit 1";
+			$query = $this->db->query($sql);
 			
-			return $query->result;
+			return $query->row_array();
 		}
 
 		function insert_item($item) {
@@ -44,6 +44,11 @@ class Users_model extends CI_Model {
 
 			$this->db->where('id', $user);
 			$this->db->update('users', $data);
+		}
+
+		function update($id, $info) {
+			$this->db->where('id', $id);
+			$this->db->update('users', $info);
 		}
 		
 }
