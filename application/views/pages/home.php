@@ -61,7 +61,7 @@
 
         <div class="ui form" style = "margin-bottom:10px;">
             <?php echo validation_errors('<p class="error">'); ?>
-            <?php echo form_open("Controller/captcha"); ?>
+            <?php echo form_open("Controller/registration"); ?>
             <div class="required field">
                 <label>Username</label>
                 <input type="text" id="Username" name="Username" placeholder="Username" value="<?php echo set_value('Username'); ?>" />
