@@ -55,23 +55,24 @@
         <p><?php echo $luser['birthday']; ?></p>
     </div>
     
-    <div class="ui form">
+    <form class="ui form" action = "Controller/update" method = "POST">
         <div class="ui transparent input">
             <h1 class = "ui header">
                 <i class="user icon"></i>
                 <div class = "content">
-                    <input id = "name" type="text" placeholder="Name" value = "<?php echo $luser['name']; ?>">
+                    <input name = "name" type="text" placeholder="Name" value = "<?php echo $luser['name']; ?>">
                     <div class="sub header">@<?php echo $luser['username']; ?></div>
                 </div>
             </h1>
         </div>
+        <input type="hidden" name="<?=$csrf['name'];?>" value="<?=$csrf['hash'];?>" />
         <br>
         <div class="ui small input" style = "margin: 5px 0 2.5px 0;">
-            <input type="text" placeholder="Address" value = "<?php echo $luser['address']; ?>">
+            <input type="text" name = "address" placeholder="Address" value = "<?php echo $luser['address']; ?>">
         </div>
         <br>
         <div class="ui small input" style = "margin: 2.5px 0 5px 0;">
-            <input type="date" placeholder="yyyy-mm-dd" value = "<?php echo $luser['birthday']; ?>">
+            <input type="date" name = "birthday" placeholder="yyyy-mm-dd" value = "<?php echo $luser['birthday']; ?>">
         </div>
         <br>
         <div class = "ui primary submit labeled icon button">
@@ -82,7 +83,7 @@
             <i class = "remove icon"></i>
             Cancel
         </div>
-    </div>
+    </form>
 
 </div>
 
@@ -92,8 +93,11 @@
 </div>
 
 <div class="ui relaxed list">
-    <?php foreach($users as $user) {
-        if ($user['is_online'] == true) {?>
+    <?php
+    $ctr = 0;
+
+    foreach($users as $user) {
+        if ($user['is_online'] == true  && $luser['id'] != $user['id']) {?>
             <div class="item" style = "cursor:pointer; padding: 5px;">
                 <i class="user large icon"></i>
                 <div class="content">
@@ -102,8 +106,19 @@
                 </div>
             </div>
     <?php 
+            $ctr++;
         }
-    } ?>
+    }
+    
+    if ($ctr == 0) { ?>
+            <div class="item" style = "cursor:pointer; padding: 5px;">
+                <div class="content">
+                    No other users are online.
+                </div>
+            </div>
+    <?php
+    }
+    ?>
 </div>
 
 <div class="ui horizontal divider">
@@ -111,7 +126,20 @@
 </div>
 
 <div class="ui middle aligned relaxed list">
-    <?php foreach($users as $user) {?>
+    <?php
+    
+    if (count($users) == 1) { ?>
+        <div class="item" style = "cursor:pointer; padding: 5px;">
+            <div class="content">
+                No other users exist.
+            </div>
+        </div>
+    <?php }
+
+    foreach($users as $user) {
+        if ($luser['id'] == $user['id'])
+            continue;
+    ?>    
         <div class="item" style = "cursor:pointer; padding:10px">
             <div class = "reg">
                 <div class="left floated content">
@@ -132,16 +160,27 @@
             <?php if($luser['is_admin']) { ?>
             <div class = "frm">
                 <div class = "left floated content">
-                    <div class="ui form">
+                    <form class="ui form" method = "POST" action = "Controller/update/<?php echo $user['id'] ?>">
+                        <input type="hidden" name="<?=$csrf['name'];?>" value="<?=$csrf['hash'];?>" />
                         @<?php echo $user['username'];?>
                         <div class="ui input" style = "margin-right:-5px;margin-left:5px;">
-                            <input type="text" placeholder="Name" value = "<?php echo $user['name']; ?>">
+                            <input type="text" name = "name" placeholder="Name" value = "<?php echo $user['name']; ?>">
                         </div>
                         <div class="ui input" style = "padding: 15px;">
-                            <input type="text" placeholder="Address" value = "<?php echo $user['address']; ?>">
+                            <input type="text" name = "address" placeholder="Address" value = "<?php echo $user['address']; ?>">
                         </div>
-                        <div class="ui small input" style = "margin: 2.5px 0 5px 0;">
-                            <input type="date" placeholder="yyyy-mm-dd" value = "<?php echo $user['birthday']; ?>">
+                        <div class="ui small input" style = "margin: 2.5px 0 2.5px 0;">
+                            <input type="date" name = "birthday" placeholder="yyyy-mm-dd" value = "<?php echo $user['birthday']; ?>">
+                        </div>
+                        <div class="ui checkbox" style = "margin-right:5px;margin-left:5px;">
+                            <input name="admin" type="checkbox" value = "admin"
+                            <?php
+                                if ($user['is_admin']) {
+                                    echo "checked";
+                                }
+                            ?>
+                            >
+                            <label>Superuser</label>
                         </div>
                         <div class = "ui primary submit labeled icon button" style = "margin-left: 5px" >
                             <i class = "save icon"></i>
@@ -151,7 +190,7 @@
                             <i class = "remove icon"></i>
                             Cancel
                         </div>
-                    </div>
+                    </form>
                 </div>
             </div>
             <?php } ?>
@@ -234,12 +273,12 @@
         $(".form").hide();
         $(".edit").click(function(){
             $(":root").find(".basic:first").find(".reg:first").show();
-            $(":root").find(".basic:first").find(".form:first").hide();
+            $(":root").find(".basic:first").find(".form:first").hide(); 
             $(":root").find(".list").children().find(".reg").show();
             $(":root").find(".list").children().find(".frm").hide();
             $(this).closest(".basic, .item").find(".reg").fadeOut(200);
-            $(this).closest(".basic, .item").find(".form, .frm").delay(200).fadeIn(400);
-            $(this).closest(".basic, .item").find(".form").find("input:first").focus();
+            $(this).closest(".basic, .item").find("form, .frm").delay(200).fadeIn(200);
+            $(this).closest(".basic, .item").find("form, .frm").find(".input:first").find(".content").focus();
         });
         $(".cancel").click(function() {
             $(this).closest(".basic, .item").find(".form, .frm").fadeOut(200);
@@ -252,6 +291,9 @@
         });
         $(".close.button").click(function() {
             $(this).closest(".inverted").slideUp();
+        });
+        $(".submit.button").click(function() {
+            $(this).closest(".form").trigger("submit");
         });
     });
 </script>

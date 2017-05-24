@@ -8,15 +8,6 @@
 			$this->load->helper(array('url', 'form'));
 			$this->load->library(array('session', 'form_validation'));
 		}
-
-		public function index() {
-			$dbconnect = $this->load->database();
-			
-			foreach ($this->users_model->get() as $row) {
-				echo $row->birthday;
-			}
-			
-		}
 		
 		function add_user($from = 'dashboard'){
 			if (!$this->session->userdata('id'))
@@ -32,7 +23,7 @@
 							'max_length'	=> 'This %s is too long. Must be 5 to 12 characters.'
 					)
 			);
-			$this->form_validation->set_rules('name', 'Name', 'required|alpha_dash');
+			$this->form_validation->set_rules('name', 'Name', 'required');
 			$this->form_validation->set_rules('password', 'Password', 'required');
 			$this->form_validation->set_rules('confirm_password', 'Password Confirmation', 'required|matches[password]');
 			$this->form_validation->set_rules('address', 'Address', 'required');
@@ -103,6 +94,61 @@
 
 		}
 
+		public function update($id = NULL) {
+			if (!$this->session->userdata('id'))
+				redirect('/');
+
+			if ($id == NULL) {
+				$id = $this->session->userdata('id');
+			}
+
+			$this->form_validation->set_rules('name', 'Name', 'required');
+			$this->form_validation->set_rules('address', 'Address', 'required');
+			$this->form_validation->set_rules('birthday', 'Birthday', 'required|callback_is_date');
+
+			if ($this->form_validation->run() == FALSE) {
+				$errors = validation_errors();
+				$this->session->set_userdata('errors', $errors);
+				redirect('dashboard');
+			} else {
+				$user = $this->users_model->get_user_info($id);
+
+				if ($user['is_online'] && $id != $this->session->userdata('id')) {
+					$this->session->set_userdata('errors', 'You cannot update an online user');
+					redirect('dashboard');
+				}
+
+				if ($this->input->post('admin', TRUE)) {
+					$admin = 1;
+				} else {
+					$admin = 0;
+				}
+
+				if ($this->session->userdata('id') == $id) {
+					$info = array(
+						'name' => $this->input->post('name', TRUE),
+						'address' => $this->input->post('address', TRUE),
+						'birthday' => $this->input->post('birthday', TRUE)
+					);
+				} else {
+					$info = array(
+						'name' => $this->input->post('name', TRUE),
+						'address' => $this->input->post('address', TRUE),
+						'birthday' => $this->input->post('birthday', TRUE),
+						'is_admin' => $admin,
+					);
+				}
+
+				if ($id == $this->session->userdata('id'))
+					$this->session->set_userdata($info);
+
+				$this->users_model->update($id, $info);
+				$this->session->set_userdata('success', 'You have successfully updated a user!');
+				redirect('dashboard');
+			}
+
+		}
+
 		function logout() {
 			if ($this->session->userdata('id')) {
 				$this->users_model->online($this->session->userdata('id'), 0);
@@ -113,6 +159,7 @@
 		}
 
 		public function is_date($str) {
+
 			$dateRegex = "/^(?:(?!0000)[0-9]{4}-(?:(?:0[1-9]|1[0-2])-(?:0[1-9]|1[0-9]|2[0-8])|(?:0[13-9]|1[0-2])-(?:29|30)|(?:0[13578]|1[02])-31)|(?:[0-9]{2}(?:0[48]|[2468][048]|[13579][26])|(?:0[48]|[2468][048]|[13579][26])00)-02-29)$/";
 
 			if (1 !== preg_match($dateRegex, $str))
