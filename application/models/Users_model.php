@@ -14,11 +14,9 @@ class Users_model extends CI_Model {
 			
 			return $query->result;
 		}
-		
+
 		function insert_item($item) {
-			$this->item = $item;
-			
-			$this->db->insert($this->table, $this);
+			$this->db->insert($this->table, $item);
 		}
 		
 		function get(){

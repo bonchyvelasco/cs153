@@ -6,6 +6,34 @@
     }
 ?></h1>
 
+<?php if(isset($errors)) { ?>
+    <div class = "ui red inverted segment" style = "margin-top:20px">
+        <div class = "ui right floated white icon close button">
+            <i class = "close link icon"></i>
+        </div>
+        <div class = "ui header">
+            There were errors in your form submission
+        </div>
+        <div class = "content">
+            <?php echo $errors; ?>
+        </div>
+    </div>
+<?php } ?>
+
+<?php if(isset($success)) { ?>
+    <div class = "ui green inverted segment" style = "margin-top:20px">
+        <div class = "ui right floated white icon close button">
+            <i class = "close link icon"></i>
+        </div>
+        <div class = "ui header">
+            Success
+        </div>
+        <div class = "content">
+            <?php echo $success; ?>
+        </div>
+    </div>
+<?php } ?>
+
 <div class = "ui basic segment" style = "margin-top: 20px">
     <?php if($luser['is_admin']) { ?>
         <div class = "ui right floated blue labeled icon add button">
@@ -133,60 +161,62 @@
 
 <?php if ($luser['is_admin']) {?>
 <div class="ui modal">
-    <div class = "header">
+     <div class = "header">
         <i class = "close closer link icon"></i>
         Add User
     </div>
     <div class = "content">
-        <form>
+        <form action = "Controller/add_user" method = "POST">
+            <input type="hidden" name="<?=$csrf['name'];?>" value="<?=$csrf['hash'];?>" />
             <div class="ui labeled input" style = "margin-bottom:5px">
                 <div class = "ui label">
                     Name
                 </div>
-                <input type="text" placeholder="Name" >
+                <input type="text" placeholder="Name" name = "name">
             </div>
             <br>
             <div class="ui labeled input" style = "margin-bottom:5px">
                 <div class = "ui label">
                     Username
                 </div>
-                <input type="text" placeholder="Username">
+                <input type="text" placeholder="Username" name = "username">
             </div>
             <br>
             <div class="ui labeled input" style = "margin-bottom:5px">
                 <div class = "ui label">
                     Address
                 </div>
-                <input type="text" placeholder="Address">
+                <input type="text" placeholder="Address" name = "address">
             </div>
             <br>
             <div class="ui labeled input" style = "margin-bottom:5px">
                 <div class = "ui label">
                     Birthday
                 </div>
-                <input type="date" placeholder="yyyy-mm-dd">
+                <input type="date" placeholder="yyyy-mm-dd" name = "birthday">
             </div>
             <br>
             <div class="ui labeled input" style = "margin-bottom:5px">
                 <div class = "ui label">
                     Password
                 </div>
-                <input type="password" placeholder="Password">
+                <input type="password" placeholder="Password" name = "password">
             </div>
             <br>
-            <div class="ui labeled input" style = "margin-bottom:20px">
+            <div class="ui labeled input" style = "margin-bottom:10px">
                 <div class = "ui label">
                     Confirm
                 </div>
-                <input type="password" placeholder="Confirm Password">
+                <input type="password" placeholder="Confirm Password" name = "confirm_password">
             </div>
             <br>
-            <div class = "ui primary submit labeled icon button">
-                <i class = "add icon"></i>
-                Add
+            <div class="ui checkbox" style = "margin-bottom:20px">
+                <input name="admin" type="checkbox" value = "admin">
+                <label>Make this user a superuser</label>
             </div>
-            <div class = "ui red labeled icon closer button">
-                <i class = "remove icon"></i>
+            <br>
+            <input type = "submit" class = "ui primary submit button" value = "Add">
+            <div class = "ui red closer button">
                 Cancel
             </div>
         </form>
@@ -219,6 +249,9 @@
             $(this).css('background', '#f7f7f7');
         }, function() {
             $(this).css('background', 'none');
+        });
+        $(".close.button").click(function() {
+            $(this).closest(".inverted").slideUp();
         });
     });
 </script>

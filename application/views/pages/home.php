@@ -6,10 +6,39 @@
     }
 ?></h1>
 
+<?php if(isset($errors)) { ?>
+    <div class = "ui red inverted segment" style = "margin-top:20px">
+        <div class = "ui right floated white icon close button">
+            <i class = "close link icon"></i>
+        </div>
+        <div class = "ui header">
+            There were errors in your form submission
+        </div>
+        <div class = "content">
+            <?php echo $errors; ?>
+        </div>
+    </div>
+<?php } ?>
+
+<?php if(isset($success)) { ?>
+    <div class = "ui green inverted segment" style = "margin-top:20px">
+        <div class = "ui right floated white icon close button">
+            <i class = "close link icon"></i>
+        </div>
+        <div class = "ui header">
+            Success
+        </div>
+        <div class = "content">
+            <?php echo $success; ?>
+        </div>
+    </div>
+<?php } ?>
+
 <div class = "ui horizontal basic segments" style = "box-shadow:none; border:none;">
     <div class = "ui basic segment" style = "box-shadow:none; border:none; margin-right: 20px;">
         <h2 class="ui header">Log-In</h2>
          <form class="ui form" style = "margin-bottom:10px;" action="Controller/authenticate" method="post">
+            <input type="hidden" name="<?=$csrf['name'];?>" value="<?=$csrf['hash'];?>" />
             <div class="required field">
                 <label>Username</label>
                 <input type="text" name="username" autofocus placeholder="Username">
