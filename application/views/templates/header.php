@@ -15,7 +15,5 @@
         <link rel = "stylesheet" type = "text/css" href="resources/semantic/semantic.min.css" >
         <script src = "resources/semantic/semantic.min.js" ></script>
     </head>
-    <body>
+    <body style = "height:1vh">
         <div class = "ui container" style = "margin-top: 75px">
-
-        
