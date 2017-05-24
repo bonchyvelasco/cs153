@@ -56,41 +56,50 @@
         OR
     </div>
 
-    <div class = "ui basic segment" style = "box-shadow:none; border:none; margin-left: 20px;">
+<div class = "ui basic segment" style = "box-shadow:none; border:none; margin-left: 20px;">
         <h2 class="ui header">Register</h2>
 
         <div class="ui form" style = "margin-bottom:10px;">
+            <?php echo validation_errors('<p class="error">'); ?>
+            <?php echo form_open("Controller/captcha"); ?>
             <div class="required field">
                 <label>Username</label>
-                <input type="text" autofocus placeholder="Username">
+                <input type="text" id="Username" name="Username" placeholder="Username" value="<?php echo set_value('Username'); ?>" />
             </div>
 
             <div class="required field">
                 <label>Name</label>
-                <input type="text" placeholder="Name">
+                <input type="text" id="Name" name="Name" placeholder="Name" value="<?php echo set_value('Name'); ?>" />
             </div>
 
             <div class="required field">
                 <label>Address</label>
-                <input type="text" placeholder="Password">
+                <input type="text" id="Address" name="Address" placeholder="Address" value="<?php echo set_value('Address'); ?>" />
             </div>
             
             <div class="required field">
                 <label>Birthday</label>
-                <input type="date" placeholder="yyyy-mm-dd">
+                <input type="date" id="Date" name="Date" value="<?php echo set_value('Date'); ?>" />
             </div>
 
             <div class="required field">
                 <label>Password</label>
-                <input type="password" placeholder="Password">
+                <input type="password" id="Password" name="Password" placeholder="Password" value="<?php echo set_value('Password'); ?>" />
             </div>
             
             <div class="required field">
                 <label>Confirm Password</label>
-                <input type="password" placeholder="Password">
+                <input type="password" id="ConPassword" name="ConPassword" placeholder="Retype Password" value="<?php echo set_value('ConPassword'); ?>" />
             </div>
-
-            <button class = "ui submit button">Register</button>
+			
+			<?php echo $captcha['image']; ?>
+			
+			<div class="required field">
+				<label>Captcha</label>
+				<input type="captcha" id="Captcha" name="Captcha" placeholder="Copy text in image" value="<?php echo set_value('Captcha'); ?>" />
+			<div>
+			
+            <button class = "ui submit button">Submit</button>
         </div>
     </div>
 </div>

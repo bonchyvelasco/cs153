@@ -5,7 +5,7 @@ class Pages extends CI_Controller {
 		public function __construct() {
 			parent::__construct();
 			$this->load->model('users_model');
-			$this->load->helper(array('url', 'form'));
+			$this->load->helper(array('url', 'form', 'captcha'));
 			$this->load->library(array('session', 'form_validation'));
 		}
 
@@ -19,6 +19,15 @@ class Pages extends CI_Controller {
             redirect("dashboard");
         }
 
+		$captcha = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789abcdefghijklmnopqrstuvwxyz';
+		$captcha = substr(str_shuffle($captcha), 0, 6);
+		$vals = array(
+				'img_path'      => './images/',
+				'img_url'       => base_url().'images/'
+		);
+
+		$cap = create_captcha($vals);
+		$data['captcha'] = $cap;
         $data['title'] = ucfirst($page); // Capitalize the first letter
 
         $data['csrf'] = array(
